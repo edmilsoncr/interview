@@ -1,0 +1,44 @@
+@startuml
+!theme mars
+
+class OrderService {
+  +processOrder(request)
+}
+
+class InventoryService {
+  +reserve(items)
+}
+
+class PricingService {
+  +calculateTotal(items)
+}
+
+class OrderRepository {
+  +save(order)
+  +findById(orderId)
+  +findAll()
+}
+
+class InventoryRepository {
+  +reserve(productId, quantity)
+  +release(productId, quantity)
+  +findByProductId(productId)
+  +save(inventory)
+}
+
+class ProductRepository {
+  +findById(productId)
+  +save(product)
+  +findAllById(productIds)
+  +findAll()
+}
+
+
+OrderService --> PricingService
+OrderService --> InventoryService
+OrderService --> OrderRepository
+
+PricingService --> ProductRepository
+
+InventoryService --> InventoryRepository
+@enduml
